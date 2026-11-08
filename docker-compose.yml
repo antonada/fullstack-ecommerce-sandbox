@@ -1,5 +1,6 @@
 services:
-  app:
+  # not called "app": Chromium forces https for hosts under the .app TLD
+  shop:
     build: .
     ports:
       - '3000:3000'
@@ -24,10 +25,10 @@ services:
       context: .
       dockerfile: tests/Dockerfile
     depends_on:
-      app:
+      shop:
         condition: service_healthy
     environment:
-      BASE_URL: http://app:3000
+      BASE_URL: http://shop:3000
       JWT_SECRET: compose-secret
       CI: ${CI:-}
     volumes:
