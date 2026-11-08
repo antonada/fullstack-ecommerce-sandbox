@@ -7,6 +7,10 @@
 
 A small plant shop with its own backend and a test suite built around it. Testing a public site means living with changing pages and bot protection, so this repo ships the system under test too. Express serves a JWT protected REST API and a React storefront, and Playwright covers it on three levels: API contracts, business rules and the browser.
 
+![UI tests running in Chromium](docs/media/demo.gif)
+
+Full quality video: [docs/media/demo.mp4](docs/media/demo.mp4)
+
 Everything starts with one command:
 
 ```bash
@@ -72,6 +76,7 @@ Handy variants:
 ```bash
 npm run test:smoke -w tests      # tests tagged @smoke
 npm run test:contract -w tests   # one project
+npm run demo:record -w tests     # slow motion run, rebuilds docs/media
 npm run dev:api                  # API on :3000 with reload
 npm run dev:web                  # Vite on :5173, proxies /api to :3000
 npm run lint

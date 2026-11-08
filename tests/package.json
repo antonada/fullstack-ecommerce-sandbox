@@ -10,7 +10,8 @@
     "test:e2e": "playwright test --project=e2e-chromium --project=e2e-firefox",
     "test:smoke": "playwright test --grep @smoke",
     "report": "playwright show-report",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "demo:record": "playwright test --config=playwright.demo.config.ts && bash scripts/make-demo-media.sh"
   },
   "dependencies": {
     "@shop/shared": "*",
