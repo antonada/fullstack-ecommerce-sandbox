@@ -35,7 +35,7 @@ jobs:
       - name: Run the stack and the tests
         run: docker compose up --build --abort-on-container-exit --exit-code-from tests
         env:
-          CI: "true"
+          CI: 'true'
 
       - name: Stop the stack
         if: ${{ !cancelled() }}
