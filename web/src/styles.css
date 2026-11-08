@@ -1,0 +1,48 @@
+:root {
+  --green: #2f6b4f;
+  --green-dark: #22503b;
+  --bg: #f7f5ef;
+  --ink: #1f2a24;
+  --muted: #667269;
+  --line: #dcd8cc;
+  --danger: #b3261e;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 960px; margin: 0 auto; padding: 24px 16px 64px; }
+a { color: var(--green); }
+h1 { font-size: 1.6rem; margin: 0 0 16px; }
+h2 { font-size: 1.05rem; margin: 0 0 6px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; background: #fff; border-bottom: 1px solid var(--line); }
+.topbar nav { display: flex; gap: 18px; align-items: center; }
+.brand { font-weight: 700; font-size: 1.15rem; text-decoration: none; color: var(--green-dark); }
+.muted { color: var(--muted); }
+.error { color: var(--danger); font-size: 0.9rem; }
+.notice { background: #e6f1ea; border: 1px solid #b9d6c5; padding: 8px 12px; border-radius: 6px; }
+button, .button { font: inherit; background: var(--green); color: #fff; border: 0; border-radius: 6px; padding: 8px 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+button:hover:not(:disabled), .button:hover { background: var(--green-dark); }
+button:disabled { background: #b8bfba; cursor: not-allowed; }
+button.link { background: none; color: var(--green); padding: 0; text-decoration: underline; }
+input, select { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+input[aria-invalid='true'] { border-color: var(--danger); }
+.filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.filters input { flex: 1 1 240px; }
+.grid { list-style: none; padding: 0; margin: 16px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+.card p { margin: 0; }
+.card button { margin-top: auto; }
+.price { font-weight: 600; margin-top: 6px; }
+.pager { display: flex; gap: 14px; align-items: center; justify-content: center; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); }
+.qty { display: flex; gap: 10px; align-items: center; }
+.qty button { padding: 2px 10px; }
+.total { text-align: right; font-size: 1.1rem; }
+.form { display: grid; gap: 14px; max-width: 420px; }
+.form label { display: grid; gap: 4px; }
+.narrow { max-width: 420px; margin: 0 auto; }
+.orders { list-style: none; padding: 0; display: grid; gap: 8px; }
+.orders li { display: flex; justify-content: space-between; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
