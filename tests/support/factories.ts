@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 let counter = 0;
-export const uid = () => `${Date.now().toString(36)}${(counter++).toString(36)}${Math.random().toString(36).slice(2, 5)}`;
+export const uid = () =>
+  `${Date.now().toString(36)}${(counter++).toString(36)}${Math.random().toString(36).slice(2, 5)}`;
 
 export const jwtSecret = process.env.JWT_SECRET ?? 'dev-secret-change-me';
 
@@ -31,7 +32,10 @@ export const shippingData = (overrides = {}) => ({
 
 export const adminLogin = { email: 'admin@shop.test', password: 'Admin123!' };
 
-export function signToken(userId: string, options: { expiresIn?: number | string; secret?: string; role?: string } = {}) {
+export function signToken(
+  userId: string,
+  options: { expiresIn?: number | string; secret?: string; role?: string } = {},
+) {
   return jwt.sign({ role: options.role ?? 'customer' }, options.secret ?? jwtSecret, {
     subject: userId,
     expiresIn: (options.expiresIn ?? '1h') as jwt.SignOptions['expiresIn'],

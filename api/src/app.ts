@@ -47,7 +47,7 @@ export function createApp() {
       res.status(204).end();
     });
   }
-  api.use((_req, _res) => {
+  api.use(() => {
     throw notFound('Route');
   });
 

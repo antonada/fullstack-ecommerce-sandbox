@@ -4,7 +4,10 @@ import { expect, test } from '../support/fixtures.ts';
 
 interface Spec {
   openapi: string;
-  paths: Record<string, Record<string, { operationId: string; security?: unknown[]; responses: Record<string, unknown> }>>;
+  paths: Record<
+    string,
+    Record<string, { operationId: string; security?: unknown[]; responses: Record<string, unknown> }>
+  >;
 }
 
 test.describe('openapi document', () => {

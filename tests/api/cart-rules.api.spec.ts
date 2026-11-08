@@ -5,7 +5,10 @@ test.describe('cart rules', () => {
   test('adding the same product twice merges the lines', async ({ shopper, newProduct }) => {
     const product = await newProduct();
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 2 });
-    const cart = matches(Cart, await (await shopper.api.post('/cart/items', { productId: product.id, quantity: 3 })).json());
+    const cart = matches(
+      Cart,
+      await (await shopper.api.post('/cart/items', { productId: product.id, quantity: 3 })).json(),
+    );
     expect(cart.items).toHaveLength(1);
     expect(cart.items[0].quantity).toBe(5);
   });
@@ -21,7 +24,11 @@ test.describe('cart rules', () => {
   test('adding more than the stock is refused and the cart keeps its old quantity', async ({ shopper, newProduct }) => {
     const product = await newProduct({ stock: 3 });
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 2 });
-    const error = await expectApiError(await shopper.api.post('/cart/items', { productId: product.id, quantity: 2 }), 409, 'out_of_stock');
+    const error = await expectApiError(
+      await shopper.api.post('/cart/items', { productId: product.id, quantity: 2 }),
+      409,
+      'out_of_stock',
+    );
     expect(error.message).toContain('Only 3');
     const cart = matches(Cart, await (await shopper.api.get('/cart')).json());
     expect(cart.items[0].quantity).toBe(2);
@@ -30,12 +37,20 @@ test.describe('cart rules', () => {
   test('a quantity of zero is not a valid update', async ({ shopper, newProduct }) => {
     const product = await newProduct();
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 1 });
-    await expectApiError(await shopper.api.patch(`/cart/items/${product.id}`, { quantity: 0 }), 400, 'validation_error');
+    await expectApiError(
+      await shopper.api.patch(`/cart/items/${product.id}`, { quantity: 0 }),
+      400,
+      'validation_error',
+    );
   });
 
   test('more than 20 of one product is not accepted', async ({ shopper, newProduct }) => {
     const product = await newProduct({ stock: 100 });
-    await expectApiError(await shopper.api.post('/cart/items', { productId: product.id, quantity: 21 }), 400, 'validation_error');
+    await expectApiError(
+      await shopper.api.post('/cart/items', { productId: product.id, quantity: 21 }),
+      400,
+      'validation_error',
+    );
   });
 
   test('a price change by the admin shows up in the cart', async ({ shopper, admin, newProduct }) => {

@@ -40,9 +40,12 @@ export function ShopPage() {
     if (q) query.set('q', q);
     if (category) query.set('category', category);
     let stale = false;
-    setError('');
     api<Page>(`/products?${query}`)
-      .then((res) => !stale && setData(res))
+      .then((res) => {
+        if (stale) return;
+        setData(res);
+        setError('');
+      })
       .catch((err: ApiFailure) => !stale && setError(err.message));
     return () => {
       stale = true;

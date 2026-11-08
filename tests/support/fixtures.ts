@@ -71,7 +71,11 @@ export function matches<T extends z.ZodType>(schema: T, body: unknown): z.infer<
   return result.data as z.infer<T>;
 }
 
-export async function expectApiError(res: { status(): number; json(): Promise<unknown> }, status: number, code: string) {
+export async function expectApiError(
+  res: { status(): number; json(): Promise<unknown> },
+  status: number,
+  code: string,
+) {
   expect(res.status()).toBe(status);
   const body = matches(ApiError, await res.json());
   expect(body.error.code).toBe(code);

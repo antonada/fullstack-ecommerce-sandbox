@@ -20,7 +20,11 @@ test.describe('catalog', () => {
     await page.goto('/');
     await page.getByTestId('category-filter').selectOption('Pots');
     await expect(page.getByTestId('product-card')).toHaveCount(3);
-    await expect(page.getByTestId('product-name')).toContainText(['Ceramic Pot 18 cm', 'Hanging Planter', 'Terracotta Pot 12 cm']);
+    await expect(page.getByTestId('product-name')).toContainText([
+      'Ceramic Pot 18 cm',
+      'Hanging Planter',
+      'Terracotta Pot 12 cm',
+    ]);
   });
 
   test('sorting by price puts the cheapest plant first', async ({ page }) => {

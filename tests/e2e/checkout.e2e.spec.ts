@@ -10,7 +10,11 @@ async function fillShipping(page: Page, values = shippingData()) {
 }
 
 test.describe('cart', () => {
-  test('lines and the total come from a cart prepared through the API @smoke', async ({ signedInPage: page, shopper, newProduct }) => {
+  test('lines and the total come from a cart prepared through the API @smoke', async ({
+    signedInPage: page,
+    shopper,
+    newProduct,
+  }) => {
     const plant = await newProduct({ name: 'Cart test plant', priceCents: 2000 });
     const pot = await newProduct({ name: 'Cart test pot', priceCents: 550 });
     await shopper.api.post('/cart/items', { productId: plant.id, quantity: 2 });
@@ -63,7 +67,11 @@ test.describe('cart', () => {
 });
 
 test.describe('checkout', () => {
-  test('a full purchase ends on the confirmed order and lands in the history @smoke', async ({ signedInPage: page, shopper, newProduct }) => {
+  test('a full purchase ends on the confirmed order and lands in the history @smoke', async ({
+    signedInPage: page,
+    shopper,
+    newProduct,
+  }) => {
     const product = await newProduct({ name: 'Checkout test plant', priceCents: 1850, stock: 4 });
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 2 });
 
@@ -82,7 +90,11 @@ test.describe('checkout', () => {
     await expect(page.getByTestId('order-row')).toHaveCount(1);
   });
 
-  test('empty fields show an error under each input and nothing is sent', async ({ signedInPage: page, shopper, newProduct }) => {
+  test('empty fields show an error under each input and nothing is sent', async ({
+    signedInPage: page,
+    shopper,
+    newProduct,
+  }) => {
     const product = await newProduct();
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 1 });
     let orderRequests = 0;
@@ -106,7 +118,12 @@ test.describe('checkout', () => {
     await expect(page.getByTestId('error-city')).toHaveCount(0);
   });
 
-  test('stock that ran out after the cart was filled blocks the order', async ({ signedInPage: page, shopper, admin, newProduct }) => {
+  test('stock that ran out after the cart was filled blocks the order', async ({
+    signedInPage: page,
+    shopper,
+    admin,
+    newProduct,
+  }) => {
     const product = await newProduct({ name: 'Last chance plant', stock: 3 });
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 3 });
     await page.goto('/checkout');
@@ -125,7 +142,11 @@ test.describe('checkout', () => {
     await expect(page.getByTestId('cart-empty')).toBeVisible();
   });
 
-  test('the place order button is disabled while the request runs', async ({ signedInPage: page, shopper, newProduct }) => {
+  test('the place order button is disabled while the request runs', async ({
+    signedInPage: page,
+    shopper,
+    newProduct,
+  }) => {
     const product = await newProduct();
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 1 });
     await page.route('**/api/orders', async (route) => {

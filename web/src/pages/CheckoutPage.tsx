@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Navigate, useNavigate } from 'react-router';
 import { Shipping } from '@shop/shared/schemas';
@@ -20,9 +20,9 @@ export function CheckoutPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState('');
   const [busy, setBusy] = useState(false);
-  const placed = useRef(false);
+  const [placed, setPlaced] = useState(false);
 
-  if (cart.items.length === 0 && !placed.current) return <Navigate to="/cart" replace />;
+  if (cart.items.length === 0 && !placed) return <Navigate to="/cart" replace />;
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -41,7 +41,7 @@ export function CheckoutPage() {
     try {
       const order = await api<OrderT>('/orders', { method: 'POST', body: { shipping: parsed.data } });
       // the cart is empty from here on, don't bounce back to /cart
-      placed.current = true;
+      setPlaced(true);
       setCart({ items: [], totalCents: 0 });
       navigate(`/orders/${order.id}`, { state: { placed: true } });
     } catch (err) {

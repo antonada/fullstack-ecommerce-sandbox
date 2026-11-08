@@ -49,7 +49,18 @@ test.describe('roles and ownership', () => {
     const product = await newProduct();
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 1 });
 
-    const other = client(request, (await (await client(request).post('/auth/register', { email: `other-${Date.now()}@shop.test`, password: 'Passw0rd!', name: 'Other' })).json()).token);
+    const other = client(
+      request,
+      (
+        await (
+          await client(request).post('/auth/register', {
+            email: `other-${Date.now()}@shop.test`,
+            password: 'Passw0rd!',
+            name: 'Other',
+          })
+        ).json()
+      ).token,
+    );
     expect((await (await other.get('/cart')).json()).items).toEqual([]);
   });
 
@@ -58,7 +69,18 @@ test.describe('roles and ownership', () => {
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 1 });
     const order = await (await shopper.api.post('/orders', { shipping: shippingData() })).json();
 
-    const stranger = client(request, (await (await client(request).post('/auth/register', { email: `stranger-${Date.now()}@shop.test`, password: 'Passw0rd!', name: 'Stranger' })).json()).token);
+    const stranger = client(
+      request,
+      (
+        await (
+          await client(request).post('/auth/register', {
+            email: `stranger-${Date.now()}@shop.test`,
+            password: 'Passw0rd!',
+            name: 'Stranger',
+          })
+        ).json()
+      ).token,
+    );
     await expectApiError(await stranger.get(`/orders/${order.id}`), 404, 'not_found');
     expect((await (await stranger.get('/orders')).json()).items).toEqual([]);
   });

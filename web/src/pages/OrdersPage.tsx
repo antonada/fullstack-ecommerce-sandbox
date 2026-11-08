@@ -41,7 +41,12 @@ export function OrderPage() {
       .catch((err: ApiFailure) => setError(err.message));
   }, [id]);
 
-  if (error) return <p role="alert" className="error" data-testid="order-error">{error}</p>;
+  if (error)
+    return (
+      <p role="alert" className="error" data-testid="order-error">
+        {error}
+      </p>
+    );
   if (!order) return <p className="muted">Loading...</p>;
 
   return (

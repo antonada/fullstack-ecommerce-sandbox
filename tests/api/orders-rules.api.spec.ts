@@ -13,7 +13,11 @@ test.describe('order rules', () => {
     expect((await (await shopper.api.get('/cart')).json()).items).toEqual([]);
   });
 
-  test('the server prices the order from the catalog at the time of checkout', async ({ shopper, admin, newProduct }) => {
+  test('the server prices the order from the catalog at the time of checkout', async ({
+    shopper,
+    admin,
+    newProduct,
+  }) => {
     const product = await newProduct({ priceCents: 1000 });
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 2 });
     await admin.patch(`/products/${product.id}`, { priceCents: 1200 });
@@ -31,7 +35,12 @@ test.describe('order rules', () => {
     expect(again.totalCents).toBe(1000);
   });
 
-  test('a stock drop between cart and checkout fails the order and changes nothing', async ({ shopper, admin, anonymous, newProduct }) => {
+  test('a stock drop between cart and checkout fails the order and changes nothing', async ({
+    shopper,
+    admin,
+    anonymous,
+    newProduct,
+  }) => {
     const product = await newProduct({ stock: 5 });
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 4 });
     await admin.patch(`/products/${product.id}`, { stock: 2 });
@@ -44,7 +53,12 @@ test.describe('order rules', () => {
     expect((await (await shopper.api.get('/orders')).json()).items).toEqual([]);
   });
 
-  test('one short line fails the whole order, even when other lines are fine', async ({ shopper, admin, anonymous, newProduct }) => {
+  test('one short line fails the whole order, even when other lines are fine', async ({
+    shopper,
+    admin,
+    anonymous,
+    newProduct,
+  }) => {
     const fine = await newProduct({ stock: 5 });
     const short = await newProduct({ stock: 5 });
     await shopper.api.post('/cart/items', { productId: fine.id, quantity: 1 });
@@ -77,7 +91,9 @@ test.describe('order rules', () => {
   test('shipping fields are validated one by one', async ({ shopper, newProduct }) => {
     const product = await newProduct();
     await shopper.api.post('/cart/items', { productId: product.id, quantity: 1 });
-    const res = await shopper.api.post('/orders', { shipping: { fullName: 'A', address: '1', city: '', postalCode: 'abc' } });
+    const res = await shopper.api.post('/orders', {
+      shipping: { fullName: 'A', address: '1', city: '', postalCode: 'abc' },
+    });
     const error = await expectApiError(res, 400, 'validation_error');
     expect(error.details?.map((d) => d.path).sort()).toEqual([
       'shipping.address',
