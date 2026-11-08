@@ -9,11 +9,11 @@ https://antonada.github.io/fullstack-ecommerce-sandbox/, and every run is listed
 |              |                                                                                                                                   |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | Date         | 8 November 2026                                                                                                                   |
-| Commit       | `f40bb55`                                                                                                                         |
-| CI run       | [#42498355628](https://github.com/antonada/fullstack-ecommerce-sandbox/actions/runs/42498355628)                                  |
+| Commit       | `6c855b4`                                                                                                                         |
+| CI run       | [#42499054575](https://github.com/antonada/fullstack-ecommerce-sandbox/actions/runs/42499054575)                                  |
 | Environment  | GitHub Actions, `ubuntu-26.04`, Docker Compose (shop and test runner in separate containers), Node 22, Playwright 1.65, 2 workers |
 | Result       | **136 passed**, 0 failed, 0 flaky, 0 skipped                                                                                      |
-| Duration     | 26 s for the tests, about 2 min 45 s for the whole job including the image builds                                                 |
+| Duration     | 27 s for the tests, about 2 min 50 s for the whole job including the image builds                                                 |
 | Retries used | none (one retry is allowed in CI, no test needed it)                                                                              |
 
 ## Results by project
